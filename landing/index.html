@@ -3,537 +3,506 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lista Fácil · Descubra em qual mercado sua lista sai mais barata</title>
-<meta name="description" content="Monte a lista, escaneie o código de barras e compare o preço de cada item nos mercados perto de você. Grátis, sem anúncios. Disponível na Google Play.">
-<link rel="canonical" href="https://vitoriano.github.io/listafacil-site/">
+<title>Lista Fácil · Beta</title>
+<meta name="description" content="Saiba onde sua lista de compras sai mais barata antes de sair de casa. Entre no beta grátis do Lista Fácil.">
+<meta name="theme-color" content="#D91A2A">
+<meta property="og:title" content="Lista Fácil · Saiba onde sua lista sai mais barata">
+<meta property="og:description" content="Compare o total da sua lista nos mercados perto de você. Entre no beta grátis.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Lista Fácil">
-<meta property="og:title" content="Lista Fácil · A lista que sabe onde está mais barato">
-<meta property="og:description" content="Escaneie, compare os mercados perto de você e compre com o total na mão. Grátis na Google Play.">
-<meta property="og:image" content="https://vitoriano.github.io/listafacil-site/assets/og-banner.jpg">
-<meta property="og:image:width" content="1440">
-<meta property="og:image:height" content="810">
-<meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#EA1D2C">
-<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<!--
-  Landing page estática do Lista Fácil (publicada via GitHub Pages).
-  - PLAY_URL: link da ficha na Google Play (também usado no JSON-LD).
-  - LEAD_ENDPOINT: destino do formulário "avise-me" (iOS/novidades). Vazio = modo demonstração.
-  Ambos ficam no <script> ao final do arquivo.
--->
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="preload" as="image" href="assets/hero-bg.jpg">
-<link rel="preload" as="image" href="assets/mockup-home.png">
-<style>
-  /* Layout: hero vermelho da marca com o celular real; seções claras alternadas com uma faixa escura de recursos. */
-  :root {
-    color-scheme: light;
-    --tomate: #EA1D2C;
-    --tomate-escuro: #C4121F;
-    --tomate-suave: #FDE7E9;
-    --papel: #FBF6F1;
-    --papel-2: #FFFFFF;
-    --papel-3: #F3EAE3;
-    --tinta: #211417;
-    --tinta-2: #4E3E44;
-    --mudo: #7B6B70;
-    --linha: #E8DBD4;
-    --verde: #178A4E;
-    --verde-suave: #DFF3E7;
-    --etiqueta: #FFD84D;
-    --etiqueta-tinta: #3A2E00;
-    --sombra: 0 18px 50px -24px rgba(33, 20, 23, .35);
-    --display: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
-    --corpo: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-    --escuro: #211417;
-    --claro: #FBF6F1;
-    --raio: 14px;
-    --largura: 1120px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      color-scheme: dark;
-      --tomate: #FF4A57;
-      --tomate-escuro: #EA1D2C;
-      --tomate-suave: #3A1418;
-      --papel: #171114;
-      --papel-2: #221A1E;
-      --papel-3: #2C2227;
-      --tinta: #F6EEEA;
-      --tinta-2: #D9CBC6;
-      --mudo: #A8979C;
-      --linha: #3A2E33;
-      --verde: #3ECF7E;
-      --verde-suave: #143024;
-      --sombra: 0 18px 50px -24px rgba(0, 0, 0, .7);
-    }
-  }
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-    --tomate: #FF4A57;
-    --tomate-escuro: #EA1D2C;
-    --tomate-suave: #3A1418;
-    --papel: #171114;
-    --papel-2: #221A1E;
-    --papel-3: #2C2227;
-    --tinta: #F6EEEA;
-    --tinta-2: #D9CBC6;
-    --mudo: #A8979C;
-    --linha: #3A2E33;
-    --verde: #3ECF7E;
-    --verde-suave: #143024;
-    --sombra: 0 18px 50px -24px rgba(0, 0, 0, .7);
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--papel);
-    color: var(--tinta);
-    font-family: var(--corpo);
-    font-size: 17px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-  }
-  img, svg { max-width: 100%; }
-  img { height: auto; display: block; }
-  a { color: inherit; }
-  h1, h2, h3 { font-family: var(--display); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
-  h1 { font-size: clamp(2.5rem, 6.2vw, 4.6rem); font-weight: 800; }
-  h2 { font-size: clamp(1.8rem, 3.6vw, 2.7rem); font-weight: 800; }
-  h3 { font-size: 1.25rem; font-weight: 700; }
-  p { margin: 0; }
-  .wrap { max-width: var(--largura); margin-inline: auto; padding-inline: clamp(16px, 4vw, 32px); }
-  .eyebrow {
-    font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--tomate);
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .eyebrow::before { content: ""; width: 22px; height: 3px; background: var(--tomate); border-radius: 2px; }
-  .lead { font-size: 1.15rem; color: var(--tinta-2); max-width: 34em; }
-  .num { font-variant-numeric: tabular-nums; }
-  section { padding-block: clamp(56px, 9vw, 112px); }
-  .sec-head { display: grid; gap: 14px; max-width: 42em; margin-bottom: clamp(32px, 5vw, 56px); }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
-  /* Botões */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    font: 600 1rem var(--corpo); padding: 14px 22px; border-radius: 999px; border: 2px solid transparent;
-    cursor: pointer; text-decoration: none; transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
-    white-space: nowrap;
-  }
-  .btn:focus-visible, input:focus-visible, summary:focus-visible, .chk:focus-within, a:focus-visible { outline: 3px solid var(--etiqueta); outline-offset: 3px; }
-  .btn-primary { background: var(--tomate); color: #fff; box-shadow: 0 10px 24px -12px rgba(234, 29, 44, .7); }
-  .btn-primary:hover { background: var(--tomate-escuro); transform: translateY(-1px); }
-  .btn-ghost { background: transparent; color: var(--tinta); border-color: var(--linha); }
-  .btn-ghost:hover { border-color: var(--tinta); }
-  .btn-play { background: #fff; color: #C4121F; padding: 14px 24px; box-shadow: 0 14px 30px -14px rgba(0,0,0,.5); }
-  .btn-play:hover { background: #fff; transform: translateY(-1px); box-shadow: 0 18px 34px -14px rgba(0,0,0,.55); }
-  .btn-play svg { flex: none; }
-  .btn-play b { display: block; font-size: 1rem; line-height: 1.1; }
-  .btn-play small { display: block; font-size: .7rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; opacity: .75; line-height: 1.1; }
-  .btn-play span { text-align: left; }
-  .btn-outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.45); }
-  .btn-outline-light:hover { border-color: #fff; }
-
-  /* Formulário "avise-me" */
-  .lead-form { display: grid; gap: 10px; max-width: 520px; }
-  .lead-form .row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .lead-form input {
-    flex: 1 1 220px; min-width: 0; font: 500 1rem var(--corpo); padding: 14px 18px; border-radius: 999px;
-    border: 2px solid var(--linha); background: var(--papel-2); color: var(--tinta);
-  }
-  .lead-form input::placeholder { color: var(--mudo); }
-  .lead-form .fine { font-size: .85rem; color: var(--mudo); }
-  .lead-form .ok { display: none; padding: 14px 18px; border-radius: var(--raio); background: var(--verde-suave); color: var(--verde); font-weight: 600; }
-  .lead-form.sent .row, .lead-form.sent .fine { display: none; }
-  .lead-form.sent .ok { display: block; }
-  .lead-form .err { display: none; color: var(--tomate); font-size: .9rem; font-weight: 600; }
-  .lead-form.error .err { display: block; }
-
-  /* Navegação */
-  .nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--papel) 88%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--linha); }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
-  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 1.2rem; }
-  .brand img { width: 36px; height: 36px; border-radius: 9px; }
-  .nav-links { display: flex; gap: 22px; font-weight: 500; font-size: .95rem; }
-  .nav-links a { text-decoration: none; color: var(--tinta-2); }
-  .nav-links a:hover { color: var(--tinta); }
-  .nav .btn { padding: 11px 18px; font-size: .95rem; }
-  @media (max-width: 760px) { .nav-links { display: none; } }
-
-  /* Hero: composição do banner (fundo vermelho com ondas, texto à esquerda, celular inclinado saindo pela direita) */
-  .hero { background: #EA1D2C url(assets/hero-bg.jpg) center / cover no-repeat; color: #fff; padding-block: clamp(40px, 7vw, 96px) 0; overflow: hidden; position: relative; }
-  .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(234,29,44,.97) 0%, rgba(234,29,44,.92) 40%, rgba(234,29,44,.45) 62%, rgba(234,29,44,0) 85%); pointer-events: none; }
-  .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 5vw, 64px); align-items: end; }
-  .hero-copy { display: grid; gap: 24px; padding-bottom: clamp(48px, 7vw, 96px); }
-  .hero .eyebrow { color: #fff; }
-  .hero .eyebrow::before { background: var(--etiqueta); }
-  .hero h1 { color: #fff; font-size: clamp(2.6rem, 6.6vw, 5rem); text-shadow: 0 2px 24px rgba(0,0,0,.12); }
-  .hero .lead { color: rgba(255,255,255,.9); max-width: 28em; font-size: 1.2rem; }
-  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .hero-ios { font-size: .9rem; color: rgba(255,255,255,.8); }
-  .hero-ios a { color: #fff; font-weight: 600; }
-  .proof { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: .9rem; color: rgba(255,255,255,.85); }
-  .proof span { display: inline-flex; align-items: center; gap: 8px; }
-  .proof svg { color: var(--etiqueta); flex: none; }
-  .hero-cart { position: absolute; left: clamp(8px, 2vw, 32px); bottom: 12px; width: clamp(90px, 10vw, 150px); opacity: .28; pointer-events: none; }
-  .hero-phone { position: relative; align-self: end; justify-self: end; width: min(100%, 400px); }
-  .hero-phone .frame { margin-bottom: -22%; transform: rotate(-9deg) translateX(10%); transform-origin: 50% 100%; }
-  .hero-phone img { width: 100%; filter: drop-shadow(-24px 30px 50px rgba(0,0,0,.42)); }
-  @media (max-width: 900px) {
-    .hero .wrap { grid-template-columns: 1fr; }
-    .hero-copy { padding-bottom: 0; }
-    .hero-cart { display: none; }
-    .hero-phone { width: min(72%, 320px); justify-self: center; margin-top: 12px; }
-    .hero-phone .frame { margin-bottom: -30%; transform: rotate(-6deg) translateX(4%); }
-  }
-
-  /* Faixa de confiança sob o hero */
-  .trust { background: var(--papel-2); border-bottom: 1px solid var(--linha); padding-block: 22px; }
-  .trust .wrap { display: flex; flex-wrap: wrap; gap: 14px 36px; justify-content: center; font-size: .92rem; color: var(--tinta-2); font-weight: 500; }
-  .trust span { display: inline-flex; align-items: center; gap: 8px; }
-  .trust svg { color: var(--tomate); flex: none; }
-
-  /* Como funciona */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: passo; }
-  .step { display: grid; gap: 14px; align-content: start; background: var(--papel-2); border: 1px solid var(--linha); border-radius: 22px; overflow: hidden; }
-  .step figure { margin: 0; background: #fff; aspect-ratio: 1 / 1; display: grid; place-items: center; overflow: hidden; }
-  .step figure img { width: 100%; height: 100%; object-fit: cover; }
-  .step .body { display: grid; gap: 10px; padding: 8px 26px 28px; }
-  .step .n { counter-increment: passo; font-family: var(--display); font-weight: 800; font-size: .9rem; letter-spacing: .1em; color: var(--tomate); }
-  .step .n::before { content: "Passo " counter(passo); }
-  .step p { color: var(--tinta-2); font-size: .98rem; }
-  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; } }
-
-  /* Simulador */
-  .simulador { background: var(--papel-2); border-block: 1px solid var(--linha); }
-  .simulador .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
-  .sim-copy { display: grid; gap: 18px; }
-  .sim-copy ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; color: var(--tinta-2); }
-  .sim-copy li { display: flex; gap: 10px; align-items: start; }
-  .sim-copy li svg { color: var(--verde); flex: none; margin-top: 4px; }
-  .sim { background: var(--papel); border: 1px solid var(--linha); border-radius: 22px; box-shadow: var(--sombra); overflow: hidden; }
-  .sim-top { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px dashed var(--linha); }
-  .sim-top strong { font-family: var(--display); font-size: 1.05rem; }
-  .tag { display: inline-block; background: var(--etiqueta); color: var(--etiqueta-tinta); font: 700 .72rem var(--corpo); letter-spacing: .08em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; }
-  .sim-list { list-style: none; margin: 0; padding: 6px 8px; }
-  .sim-list li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 10px; }
-  .sim-list li:hover { background: var(--papel-3); }
-  .chk { position: relative; width: 22px; height: 22px; }
-  .chk input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
-  .chk span { position: absolute; inset: 0; border: 2px solid var(--linha); border-radius: 6px; background: var(--papel-2); display: grid; place-items: center; color: #fff; }
-  .chk input:checked + span { background: var(--tomate); border-color: var(--tomate); }
-  .chk svg { opacity: 0; width: 14px; }
-  .chk input:checked + span svg { opacity: 1; }
-  .sim-list .item { display: grid; gap: 2px; min-width: 0; }
-  .sim-list .item b { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sim-list .item small { color: var(--mudo); font-size: .8rem; }
-  .sim-list .best { font-weight: 600; text-align: right; }
-  .sim-list .best small { display: block; color: var(--verde); font-size: .75rem; font-weight: 600; }
-  .sim-list li.off { opacity: .45; }
-  .sim-stores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 16px 6px; }
-  .store { border: 1.5px solid var(--linha); border-radius: 12px; padding: 10px 12px; display: grid; gap: 2px; transition: border-color .2s ease; min-width: 0; }
-  .store small { font-size: .78rem; color: var(--mudo); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .store b { font-family: var(--display); font-size: 1.1rem; font-weight: 700; }
-  .store.cheapest { border-color: var(--verde); background: var(--verde-suave); }
-  .store.cheapest small { color: var(--verde); font-weight: 600; }
-  .sim-total { margin: 8px 16px 16px; padding: 14px 16px; border-radius: 14px; background: var(--escuro); color: var(--claro); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .sim-total small { display: block; font-size: .78rem; opacity: .7; }
-  .sim-total > div { min-width: 0; }
-  .sim-total b { font-family: var(--display); font-size: 1.6rem; font-weight: 800; color: var(--etiqueta); white-space: nowrap; flex: none; }
-  .sim-foot { padding: 0 20px 14px; font-size: .75rem; color: var(--mudo); }
-  @media (max-width: 900px) { .simulador .wrap { grid-template-columns: 1fr; } .sim-stores { grid-template-columns: 1fr 1fr 1fr; } }
-  @media (max-width: 420px) { .sim-stores { grid-template-columns: 1fr; } }
-
-  /* Recursos */
-  .features { background: var(--escuro); color: var(--claro); }
-  .features .eyebrow { color: var(--etiqueta); }
-  .features .eyebrow::before { background: var(--etiqueta); }
-  .features .lead { color: color-mix(in srgb, var(--claro) 75%, transparent); }
-  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--claro) 18%, transparent); border: 1px solid color-mix(in srgb, var(--claro) 18%, transparent); border-radius: 18px; overflow: hidden; }
-  .feat { background: var(--escuro); padding: 28px 26px; display: grid; gap: 12px; align-content: start; }
-  .feat .ico { width: 44px; height: 44px; border-radius: 12px; background: color-mix(in srgb, var(--claro) 10%, transparent); display: grid; place-items: center; color: var(--etiqueta); }
-  .feat p { color: color-mix(in srgb, var(--claro) 72%, transparent); font-size: .98rem; }
-  @media (max-width: 960px) { .feat-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .feat-grid { grid-template-columns: 1fr; } }
-
-  /* Dia a dia (mockup + argumentos) */
-  .diaadia .wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
-  .diaadia .phone { justify-self: center; width: min(100%, 320px); }
-  .diaadia .phone img { filter: drop-shadow(0 24px 40px rgba(33,20,23,.28)); }
-  .args { display: grid; gap: 22px; }
-  .arg { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; }
-  .arg .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--tomate-suave); color: var(--tomate); display: grid; place-items: center; }
-  .arg h3 { font-size: 1.15rem; }
-  .arg p { color: var(--tinta-2); font-size: .98rem; margin-top: 4px; }
-  @media (max-width: 860px) { .diaadia .wrap { grid-template-columns: 1fr; } .diaadia .phone { order: 2; width: min(70%, 280px); } }
-
-  /* Comunidade */
-  .community { background: var(--papel-2); border-block: 1px solid var(--linha); }
-  .community .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
-  .barcode { display: flex; gap: 3px; align-items: end; height: 120px; padding: 20px; border-radius: 18px; background: var(--papel); border: 1px solid var(--linha); }
-  .barcode i { display: block; background: var(--tinta); height: 100%; border-radius: 1px; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
-  .stat { padding: 16px; border-radius: 12px; background: var(--papel); border: 1px solid var(--linha); }
-  .stat b { display: block; font-family: var(--display); font-size: 1.5rem; font-weight: 800; color: var(--tomate); }
-  .stat small { color: var(--mudo); }
-  @media (max-width: 860px) { .community .wrap { grid-template-columns: 1fr; } }
-  @media (max-width: 420px) { .stats { grid-template-columns: 1fr; } }
-
-  /* FAQ */
-  .faq-list { display: grid; gap: 0; max-width: 760px; border-top: 1px solid var(--linha); }
-  details { border-bottom: 1px solid var(--linha); }
-  summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 4px; font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; font-size: 1.6rem; color: var(--tomate); font-weight: 500; transition: transform .2s ease; flex: none; }
-  details[open] summary::after { transform: rotate(45deg); }
-  details p { padding: 0 4px 22px; color: var(--tinta-2); max-width: 62ch; }
-
-  /* CTA final */
-  .cta-final { background: #EA1D2C; color: #fff; position: relative; overflow: hidden; }
-  .cta-final::before { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 70% at 100% 100%, rgba(255,255,255,.12), transparent 60%); pointer-events: none; }
-  .cta-final .wrap { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
-  .cta-final h2 { color: #fff; }
-  .cta-final .lead { color: rgba(255, 255, 255, .88); }
-  .cta-final .eyebrow { color: #fff; }
-  .cta-final .eyebrow::before { background: var(--etiqueta); }
-  .cta-box { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); border-radius: 22px; padding: 26px; display: grid; gap: 14px; backdrop-filter: blur(6px); }
-  .cta-box h3 { color: #fff; font-size: 1.2rem; }
-  .cta-box p { color: rgba(255,255,255,.85); font-size: .95rem; }
-  .cta-final .lead-form input { border-color: transparent; background: #fff; color: var(--escuro); }
-  .cta-final .lead-form .btn-primary { background: var(--escuro); color: var(--claro); box-shadow: none; }
-  .cta-final .lead-form .btn-primary:hover { background: #000; }
-  .cta-final .fine { color: rgba(255, 255, 255, .8); }
-  .cta-final .ok { background: rgba(255, 255, 255, .18); color: #fff; }
-  .cta-final .err { color: #fff; }
-  @media (max-width: 860px) { .cta-final .wrap { grid-template-columns: 1fr; } }
-
-  /* Rodapé */
-  footer { padding-block: 36px 40px; font-size: .9rem; color: var(--mudo); }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; align-items: center; }
-  footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
-  footer a { text-decoration: none; }
-  footer a:hover { color: var(--tinta); }
-
-  /* Barra fixa no celular */
-  .sticky-cta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--papel) 92%, transparent); backdrop-filter: blur(12px); border-top: 1px solid var(--linha); display: none; transform: translateY(110%); transition: transform .25s ease; }
-  .sticky-cta.show { transform: none; }
-  .sticky-cta .btn { width: 100%; }
-  @media (max-width: 760px) { .sticky-cta { display: block; } body { padding-bottom: 72px; } }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .btn, .store, summary::after, .sticky-cta { transition: none; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Material Symbols Rounded só com os ícones usados (icon_names em ordem alfabética). Ao usar um ícone novo, inclua o nome aqui. -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400..700,0..1,0&icon_names=add,arrow_back,arrow_drop_down,arrow_forward,barcode_scanner,battery_full,check,chevron_right,cleaning_services,close,error,expand_more,flashlight_on,home,inventory_2,keyboard_arrow_down,list_alt,lock,map,more_vert,notifications,nutrition,person_add,remove,rocket_launch,savings,search,sell,share,shopping_basket,shopping_cart,signal_cellular_alt,storefront,trending_down,trending_up,wifi,wifi_off&display=block" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="#topo" aria-label="Lista Fácil, início">
-      <img src="assets/icon-192.png" alt="" width="36" height="36">
-      Lista Fácil
-    </a>
-    <nav class="nav-links" aria-label="Seções">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#simulador">Faça a conta</a>
-      <a href="#recursos">Recursos</a>
-      <a href="#faq">Dúvidas</a>
-    </nav>
-    <a class="btn btn-primary" href="#baixar">Baixar grátis</a>
+<!-- ============ HERO (faixa vermelha) ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="site-header">
+      <a class="brand" href="#" aria-label="Lista Fácil, início">
+        <svg class="brand-mark" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
+          <rect width="40" height="40" rx="12" fill="#FFFFFF"/>
+          <path d="M10 13.5h9M10 20h6M10 26.5h7" stroke="#F4B6BC" stroke-width="3" stroke-linecap="round"/>
+          <path d="M19.5 21.5l4.5 4.5 7.5-9" fill="none" stroke="#D91A2A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Lista Fácil</span>
+      </a>
+      <nav class="site-nav" aria-label="Seções">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#no-app">No app</a>
+        <a href="#duvidas">Dúvidas</a>
+      </nav>
+      <a class="btn btn-on-red header-cta" href="#entrar" data-focus-email="hero-email">Quero testar</a>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="chip chip-on-red"><span class="ms fill" aria-hidden="true">rocket_launch</span>Beta grátis · inscrições abertas</span>
+        <h1>Saiba onde sua lista sai <span class="hl">mais barata</span> antes de sair de casa</h1>
+        <p class="hero-lead">O app compara sua lista nos mercados perto de você e mostra quanto você economiza.</p>
+
+        <div class="signup-card" id="entrar" data-signup>
+          <form class="signup-form" novalidate>
+            <p class="signup-title">Entre no beta grátis</p>
+            <label class="field-label" for="hero-email">Seu e-mail</label>
+            <div class="field-row">
+              <input class="field-input" id="hero-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="nome@gmail.com" aria-describedby="hero-email-error" required>
+              <button class="btn btn-primary btn-submit" type="submit">
+                <span class="btn-spinner" aria-hidden="true"></span>
+                <span class="btn-label">Quero testar</span>
+              </button>
+            </div>
+            <p class="field-error" id="hero-email-error" data-error="email" hidden></p>
+            <label class="consent">
+              <input type="checkbox" name="consent" aria-describedby="hero-consent-error" required>
+              <span>Aceito receber e-mails do Lista Fácil e li a <a href="privacidade.html" target="_blank" rel="noopener">política de privacidade</a>.</span>
+            </label>
+            <p class="field-error" id="hero-consent-error" data-error="consent" hidden></p>
+            <!-- Campo isca contra robôs: pessoas não veem nem preenchem. -->
+            <div class="hp" aria-hidden="true"><label>Site <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="form-alert" role="alert" data-alert hidden></div>
+          </form>
+          <div class="signup-success" data-success hidden>
+            <span class="success-icon" aria-hidden="true"><span class="ms">check</span></span>
+            <p class="success-title" tabindex="-1">Pronto, você está na lista!</p>
+            <p class="success-text">O convite vai para <strong data-success-email></strong>.</p>
+            <a class="btn btn-tonal" data-share-whatsapp href="https://wa.me/" target="_blank" rel="noopener"><span class="ms" aria-hidden="true">share</span>Chamar a família no WhatsApp</a>
+          </div>
+        </div>
+
+        <p class="hero-note"><span class="ms" aria-hidden="true">lock</span>Sem spam. Só o convite.</p>
+      </div>
+
+      <div class="hero-visual">
+        <span class="float-chip float-chip-save" aria-hidden="true"><span class="ms">savings</span>Economia de R$ 23,10</span>
+        <span class="float-chip float-chip-store" aria-hidden="true"><span class="ms fill">storefront</span>Atacadão é o mais barato</span>
+
+        <!-- Mockup: tela Início (fonte: V-Inicio) -->
+        <div class="phone phone-hero" role="img" aria-label="Tela inicial do app: a compra do mês com 14 itens sai mais barata no Atacadão, por R$ 187,40, com economia de R$ 23,10 em relação aos outros mercados.">
+          <div class="phone-screen">
+            <div class="scr" inert aria-hidden="true">
+              <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+              <div class="m-band">
+                <div class="m-appbar">
+                  <div class="m-ttl" style="padding-left:0"><p class="m-h1">Olá, Ana</p><p class="m-sub">Compra do mês em 3 dias</p></div>
+                  <span class="m-ib"><span class="ms">notifications</span></span>
+                  <span class="m-avatar">A</span>
+                </div>
+                <div class="m-search"><span class="ms m-muted">search</span><span class="m-muted" style="flex:1;padding-left:12px">Buscar produto ou preço</span><span class="m-ib m-muted"><span class="ms">barcode_scanner</span></span></div>
+              </div>
+              <div class="m-card m-over" style="padding:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                  <span class="m-lbl m-muted">Sua próxima compra · 14 itens</span>
+                  <span class="m-chip m-save"><span class="ms">savings</span>− R$ 23,10</span>
+                </div>
+                <p style="margin-top:12px;line-height:24px">Mais barato no <strong>Atacadão</strong></p>
+                <p style="font-size:36px;line-height:44px;letter-spacing:-.25px">R$ 187,40</p>
+                <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;font-size:14px">
+                  <div class="m-cmp"><span style="font-weight:500">Atacadão</span><span class="m-bar"><i style="width:79%;background:var(--best)"></i></span><span style="text-align:right;font-weight:500">187,40</span></div>
+                  <div class="m-cmp m-muted"><span>Assaí</span><span class="m-bar"><i style="width:81%;background:var(--outline)"></i></span><span style="text-align:right">192,80</span></div>
+                  <div class="m-cmp m-muted"><span>Carrefour</span><span class="m-bar"><i style="width:89%;background:var(--outline)"></i></span><span style="text-align:right">210,50</span></div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:16px">
+                  <span class="m-btn m-f" style="flex:1;padding:0"><span class="ms">shopping_cart</span>Começar compra</span>
+                  <span class="m-btn m-t" style="padding:0 20px">Mercados</span>
+                </div>
+              </div>
+              <div class="m-row-link">
+                <span class="m-round m-round-save"><span class="ms" style="font-size:22px">trending_up</span></span>
+                <span style="flex:1;min-width:0"><span style="display:block;line-height:24px">R$ 64,20 economizados</span><span class="m-s">Em novembro · 3 compras</span></span>
+                <span class="ms m-muted">chevron_right</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;height:48px;margin-top:4px">
+                <p style="font-size:16px;font-weight:500">Suas listas</p>
+                <span style="padding:0 12px;color:var(--p);font-size:14px;font-weight:500">Ver todas</span>
+              </div>
+              <div style="display:flex;gap:8px">
+                <div class="m-listcard"><span class="ms fill" style="color:var(--p)">shopping_basket</span><span class="m-listcard-t">Compra do mês</span><span class="m-s" style="font-size:13px">14 itens · com Bruno</span></div>
+                <div class="m-listcard"><span class="ms fill" style="color:var(--p)">nutrition</span><span class="m-listcard-t">Feira da semana</span><span class="m-s" style="font-size:13px">8 itens</span></div>
+                <div class="m-listcard"><span class="ms fill" style="color:var(--p)">cleaning_services</span><span class="m-listcard-t">Limpeza</span><span class="m-s" style="font-size:13px">5 itens</span></div>
+              </div>
+              <div class="m-nav">
+                <span class="m-nav-on"><span class="m-ind"><span class="ms fill">home</span></span>Início</span>
+                <span><span class="m-ind"><span class="ms">list_alt</span></span>Listas</span>
+                <span><span class="m-ind"><span class="ms">barcode_scanner</span></span>Comprar</span>
+                <span><span class="m-ind"><span class="ms">sell</span></span>Preços</span>
+                <span><span class="m-ind"><span class="ms">savings</span></span>Economia</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
-<main id="topo">
+<main id="conteudo">
 
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-copy">
-      <span class="eyebrow">Grátis na Google Play · iPhone em breve</span>
-      <h1>Economize nas suas compras</h1>
-      <p class="lead">Monte sua lista, escaneie os produtos e compare os preços entre os mercados da sua cidade. Antes de sair de casa, com o total na mão.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-play" data-play-link href="https://play.google.com/store/apps/details?id=br.com.nataldev.listafacil" rel="noopener">
-          <svg width="26" height="28" viewBox="0 0 26 28" aria-hidden="true"><path d="M1.2 1.1C.8 1.5.6 2.1.6 2.9v22.2c0 .8.2 1.4.6 1.8l.1.1L14 14.4v-.3L1.3 1z" fill="#00A0FF"/><path d="M18.2 18.6 14 14.4v-.3l4.2-4.2.1.1 5 2.8c1.4.8 1.4 2.1 0 2.9l-5 2.8-.1.1z" fill="#FFBC00"/><path d="M18.3 18.5 14 14.2 1.2 27c.5.5 1.2.5 2.1.1l15-8.6" fill="#FF3A44"/><path d="M18.3 9.9 3.3 1.4C2.4.9 1.7.9 1.2 1.4L14 14.2l4.3-4.3z" fill="#32A071"/></svg>
-          <span><small>Baixar na</small><b>Google Play</b></span>
-        </a>
-        <a class="btn btn-outline-light" href="#como-funciona">Ver como funciona</a>
-      </div>
-      <p class="hero-ios">Usa iPhone? <a href="#baixar">Deixe seu e-mail</a> e a gente avisa quando chegar na App Store.</p>
-      <div class="proof">
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Sem anúncios</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Sem cartão de crédito</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Preços de mercados brasileiros</span>
-      </div>
-    </div>
-
-    <div class="hero-phone">
-      <div class="frame">
-        <img src="assets/mockup-home.png" alt="Tela inicial do Lista Fácil mostrando o painel Sua Economia, atalhos para carrinho e scanner, compras recentes e listas" width="779" height="1640" fetchpriority="high">
-      </div>
-    </div>
-  </div>
-  <svg class="hero-cart" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 3h2.6l2.3 11.5h11.6L21.5 6.5H6"/><path d="M8 9.5h11.5M8.6 12h9.8"/><circle cx="9" cy="19" r="1.5"/><circle cx="17.5" cy="19" r="1.5"/></svg>
-</section>
-
-<div class="trust" aria-label="Resumo">
-  <div class="wrap">
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M11 8v8M15 8v8M18 8v8"/></svg> Scanner de código de barras</span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Mercados perto de você</span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.5a5 5 0 0 1 6 5"/></svg> Listas compartilhadas com a família</span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 5-8 4 5"/><path d="M3 21h18"/></svg> Economia registrada mês a mês</span>
-  </div>
-</div>
-
-<section id="como-funciona">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Como funciona</span>
-      <h2>Três passos entre a lista e o troco.</h2>
-      <p class="lead">Você continua comprando do seu jeito. O app só coloca a informação que faltava na sua mão.</p>
-    </div>
-    <div class="steps">
-      <article class="step">
-        <figure><img src="assets/ilustracao-scanner.jpg" alt="Mão segurando um celular que escaneia o código de barras de uma caixa de leite" loading="lazy" width="1000" height="1000"></figure>
-        <div class="body">
-          <span class="n"></span>
-          <h3>Escaneie e monte a lista</h3>
-          <p>Aponte a câmera para o código de barras. O produto entra na lista com nome, marca e preço estimado. Nada de digitar.</p>
-        </div>
-      </article>
-      <article class="step">
-        <figure><img src="assets/ilustracao-comparar.jpg" alt="Dois mercados lado a lado, um com etiqueta verde de menor preço e outro com etiqueta vermelha de preço alto" loading="lazy" width="1000" height="1000"></figure>
-        <div class="body">
-          <span class="n"></span>
-          <h3>Compare os mercados perto de você</h3>
-          <p>Com um toque, o app calcula sua lista inteira em cada mercado da região e mostra onde ela sai mais barata e por quanto.</p>
-        </div>
-      </article>
-      <article class="step">
-        <figure><img src="assets/ilustracao-economia.jpg" alt="Celular com lista de compras marcada ao lado de um carrinho e um cofrinho recebendo moedas" loading="lazy" width="1000" height="1000"></figure>
-        <div class="body">
-          <span class="n"></span>
-          <h3>Compre com o total na mão</h3>
-          <p>No mercado, escaneie enquanto enche o carrinho. O total sobe em tempo real, os itens da lista são marcados sozinhos e a economia fica guardada.</p>
-        </div>
-      </article>
-    </div>
+<!-- ============ COMO FUNCIONA (3 passos, curto) ============ -->
+<section class="section section-alt how" id="como-funciona" aria-labelledby="como-funciona-titulo">
+  <div class="container">
+    <h2 class="section-title" id="como-funciona-titulo">Simples assim</h2>
+    <ol class="steps">
+      <li class="step"><span class="step-num" aria-hidden="true">1</span><span><strong>Monte sua lista</strong>Digite ou escaneie os itens.</span></li>
+      <li class="step"><span class="step-num" aria-hidden="true">2</span><span><strong>Veja o mais barato</strong>O total em cada mercado.</span></li>
+      <li class="step"><span class="step-num" aria-hidden="true">3</span><span><strong>Compre e economize</strong>Veja quanto ficou no bolso.</span></li>
+    </ol>
   </div>
 </section>
 
-<section class="simulador" id="simulador">
-  <div class="wrap">
-    <div class="sim-copy">
-      <span class="eyebrow">Faça a conta</span>
-      <h2>Sete itens, três mercados. A diferença paga a gasolina e sobra.</h2>
-      <p class="lead">Desmarque os itens que você não compra e veja o total de cada mercado mudar. É exatamente o que o app faz com a sua lista, só que com preços da sua região.</p>
-      <ul>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> O app soma a lista inteira em cada mercado, não só um item.</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Mostra quanto você deixa de gastar em relação ao mercado mais caro.</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Você escolhe: tudo em um mercado só ou dividir para pagar menos.</li>
-      </ul>
-    </div>
+<!-- ============ NO APP: vitrine interativa (abas + swipe + autoplay) ============ -->
+<section class="section showcase-section" id="no-app" aria-labelledby="no-app-titulo">
+  <div class="container">
+    <h2 class="section-title" id="no-app-titulo">Veja o app por dentro</h2>
 
-    <div class="sim" aria-label="Simulação de comparação de preços">
-      <div class="sim-top">
-        <strong>Compras da semana</strong>
-        <span class="tag">Simulação</span>
+    <div class="showcase" data-showcase>
+      <div class="tabs" role="tablist" aria-label="Funcionalidades">
+        <button class="tab" role="tab" id="tab-lista" aria-controls="panel-lista" aria-selected="true"><span class="tab-title">Lista</span><span class="tab-desc">Itens por corredor do mercado</span><span class="tab-progress" aria-hidden="true"></span></button>
+        <button class="tab" role="tab" id="tab-comparar" aria-controls="panel-comparar" aria-selected="false" tabindex="-1"><span class="tab-title">Comparar</span><span class="tab-desc">O total da lista em cada mercado</span><span class="tab-progress" aria-hidden="true"></span></button>
+        <button class="tab" role="tab" id="tab-comprando" aria-controls="panel-comprando" aria-selected="false" tabindex="-1"><span class="tab-title">No mercado</span><span class="tab-desc">Total do carrinho sempre na tela</span><span class="tab-progress" aria-hidden="true"></span></button>
+        <button class="tab" role="tab" id="tab-scanner" aria-controls="panel-scanner" aria-selected="false" tabindex="-1"><span class="tab-title">Scanner</span><span class="tab-desc">Preço pelo código de barras</span><span class="tab-progress" aria-hidden="true"></span></button>
+        <button class="tab" role="tab" id="tab-finalizada" aria-controls="panel-finalizada" aria-selected="false" tabindex="-1"><span class="tab-title">Economia</span><span class="tab-desc">Quanto ficou no bolso, no WhatsApp</span><span class="tab-progress" aria-hidden="true"></span></button>
+        <button class="tab" role="tab" id="tab-historico" aria-controls="panel-historico" aria-selected="false" tabindex="-1"><span class="tab-title">Histórico</span><span class="tab-desc">Sua economia mês a mês</span><span class="tab-progress" aria-hidden="true"></span></button>
+        <button class="tab" role="tab" id="tab-familia" aria-controls="panel-familia" aria-selected="false" tabindex="-1"><span class="tab-title">Família</span><span class="tab-desc">Uma lista para a casa toda</span><span class="tab-progress" aria-hidden="true"></span></button>
       </div>
-      <ul class="sim-list" id="sim-list"></ul>
-      <div class="sim-stores" id="sim-stores"></div>
-      <div class="sim-total">
-        <div>
-          <small>Economia comprando cada item no mais barato</small>
-          <span class="num" id="sim-vs">vs. comprar tudo no mais caro</span>
-        </div>
-        <b class="num" id="sim-saving">R$ 0,00</b>
-      </div>
-      <p class="sim-foot">Valores ilustrativos, baseados em preços típicos de 2025. No app, os preços vêm dos mercados da sua região.</p>
-    </div>
-  </div>
-</section>
 
-<section class="features" id="recursos">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">O que vem no app</span>
-      <h2>Tudo que uma compra de mercado precisa. Nada que ela não precisa.</h2>
-      <p class="lead">Cada recurso resolve um problema de quem faz compras toda semana.</p>
-    </div>
-    <div class="feat-grid">
-      <article class="feat">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M11 8v8M15 8v8M18 8v8"/></svg></div>
-        <h3>Scanner de código de barras</h3>
-        <p>Reconhece o produto e preenche nome, marca e foto sozinho. Funciona no corredor do mercado, com a mão cheia.</p>
-      </article>
-      <article class="feat">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h12M3 18h6"/><path d="m16 16 2 2 4-4"/></svg></div>
-        <h3>Onde comprar mais barato</h3>
-        <p>Compara a lista inteira entre os mercados da região e diz em qual ela sai mais em conta. Ou em quais, se dividir compensar.</p>
-      </article>
-      <article class="feat">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.5a5 5 0 0 1 6 5"/></svg></div>
-        <h3>Listas compartilhadas</h3>
-        <p>Convide quem mora com você por e-mail ou QR Code. Todo mundo adiciona e marca itens, e a lista atualiza na hora em cada celular.</p>
-      </article>
-      <article class="feat">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.5 11h11L21 7H6"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
-        <h3>Modo compra com total ao vivo</h3>
-        <p>Escolha o mercado, escaneie enquanto coloca no carrinho e veja o total subir. Se vinculou uma lista, o app avisa o que ainda falta.</p>
-      </article>
-      <article class="feat">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 5-8 4 5"/><path d="M3 21h18"/></svg></div>
-        <h3>Histórico de preços</h3>
-        <p>Cada produto guarda o preço por mercado ao longo do tempo. Você descobre se a oferta é real ou só a etiqueta que mudou.</p>
-      </article>
-      <article class="feat">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-        <h3>Mercados perto de você</h3>
-        <p>Pela localização, o app encontra os supermercados mais próximos, inclusive os que ainda não estão cadastrados. Preço de bairro, não média nacional.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="diaadia" id="dia-a-dia">
-  <div class="wrap">
-    <div class="phone">
-      <img src="assets/mockup-login.png" alt="Tela de entrada do Lista Fácil com o logo, campos de e-mail e senha e o botão Entrar" loading="lazy" width="779" height="1640">
-    </div>
-    <div>
-      <div class="sec-head" style="margin-bottom:28px">
-        <span class="eyebrow">Feito para o dia a dia</span>
-        <h2>Pensado para o corredor do mercado, não para a mesa do escritório.</h2>
-      </div>
-      <div class="args">
-        <div class="arg">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.9-2.5L3 15.4a2 2 0 0 1 3-2.6L8 15"/></svg></div>
-          <div>
-            <h3>Funciona com uma mão só</h3>
-            <p>As ações principais ficam na parte de baixo da tela, ao alcance do polegar. A outra mão fica livre para o carrinho.</p>
+      <div class="panels" data-swipe>
+        <!-- 1. Lista por corredor (fonte: V-Lista) -->
+        <div class="panel" role="tabpanel" id="panel-lista" aria-labelledby="tab-lista">
+          <p class="panel-caption"><strong>Lista na ordem do mercado.</strong> Você anda menos e não esquece nada.</p>
+          <div class="stage">
+            <div class="phone" role="img" aria-label="Tela da lista Compra do mês, separada por corredor: Mercearia com arroz, feijão e café; Laticínios com leite e manteiga.">
+              <div class="phone-screen">
+                <div class="scr" inert aria-hidden="true">
+                  <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+                  <div class="m-band">
+                    <div class="m-appbar">
+                      <span class="m-ib"><span class="ms">arrow_back</span></span>
+                      <div class="m-ttl"><p class="m-h1">Compra do mês</p><p class="m-sub">14 itens · com Bruno</p></div>
+                      <span class="m-ib"><span class="ms">person_add</span></span>
+                      <span class="m-ib"><span class="ms">more_vert</span></span>
+                    </div>
+                  </div>
+                  <div class="m-card m-over" style="display:flex;align-items:center;gap:12px;padding:14px 8px 14px 16px">
+                    <span style="flex:1;min-width:0"><span class="m-s">Mais barato no Atacadão</span><span style="display:block;font-size:22px;line-height:28px">R$ 187,40</span></span>
+                    <span class="m-chip m-save"><span class="ms">savings</span>− R$ 23,10</span>
+                    <span class="ms m-muted">chevron_right</span>
+                  </div>
+                  <div style="display:flex;gap:8px;margin-top:14px">
+                    <span class="m-chip m-sel"><span class="ms">check</span>Por corredor</span>
+                    <span class="m-chip m-out">A–Z</span>
+                    <span class="m-chip m-out">Faltando · 12</span>
+                  </div>
+                  <div class="m-sec" style="margin-top:6px"><span style="flex:1">Corredor 3 · Mercearia</span><span>3 itens</span></div>
+                  <div class="m-list">
+                    <div class="m-li m-done"><span class="m-cb m-on"><i><span class="ms">check</span></i></span><span class="m-n">Arroz Tio João 5 kg<span class="m-s">1 un</span></span><span class="m-v">24,90</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Feijão Kicaldo 1 kg<span class="m-s">2 un</span></span><span class="m-v">15,58</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Café Pilão 500 g<span class="m-s">1 un</span></span><span class="m-v">17,90</span></div>
+                  </div>
+                  <div class="m-sec"><span style="flex:1">Corredor 5 · Laticínios</span><span>2 itens</span></div>
+                  <div class="m-list">
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Leite Italac 1 L<span class="m-s">12 un</span></span><span class="m-v">59,88</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Manteiga Aviação 200 g<span class="m-s">1 un</span></span><span class="m-v">12,49</span></div>
+                  </div>
+                  <div class="m-bottom" style="display:flex;flex-direction:column;gap:10px">
+                    <div class="m-add"><span class="ms m-muted">add</span><span class="m-muted" style="flex:1;padding-left:10px">Adicionar item</span><span class="m-ib m-muted"><span class="ms">barcode_scanner</span></span></div>
+                    <span class="m-btn m-f m-lg"><span class="ms">shopping_cart</span>Começar compra no Atacadão</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="arg">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></div>
-          <div>
-            <h3>Retoma de onde parou</h3>
-            <p>Fechou o app no meio da compra? Ao abrir de novo, o carrinho está lá, com tudo que você já escaneou.</p>
+
+        <!-- 2. Comparação de mercados (fonte: V-OndeComprar) -->
+        <div class="panel" role="tabpanel" id="panel-comparar" aria-labelledby="tab-comparar" hidden>
+          <p class="panel-caption"><strong>O mais barato, antes de sair.</strong> O total da sua lista em cada mercado.</p>
+          <div class="stage">
+            <div class="phone" role="img" aria-label="Tela Onde comprar: a lista sai por R$ 187,40 no Atacadão, R$ 192,80 no Assaí, R$ 210,50 no Carrefour e R$ 236,90 no Pão de Açúcar.">
+              <div class="phone-screen">
+                <div class="scr" inert aria-hidden="true">
+                  <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+                  <div class="m-band">
+                    <div class="m-appbar">
+                      <span class="m-ib"><span class="ms">arrow_back</span></span>
+                      <div class="m-ttl"><p class="m-h1">Onde comprar</p><p class="m-sub">Compra do mês · 14 itens</p></div>
+                      <span class="m-ib"><span class="ms">map</span></span>
+                    </div>
+                  </div>
+                  <div class="m-card m-over" style="padding:16px">
+                    <p class="m-s">Sua lista sai mais barata no</p>
+                    <p style="font-size:22px;line-height:28px;font-weight:500">Atacadão</p>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+                      <span style="font-size:32px;line-height:40px">R$ 187,40</span>
+                      <span class="m-chip m-save"><span class="ms">savings</span>− R$ 23,10</span>
+                    </div>
+                  </div>
+                  <div class="m-seg">
+                    <span class="m-seg-on"><span class="ms" style="font-size:18px">check</span>Menor preço</span>
+                    <span style="box-shadow:inset 1px 0 0 var(--outline)">Mais perto</span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+                    <div class="m-store m-store-on">
+                      <span class="m-store-row"><span class="m-radio m-radio-on"><span></span></span><span style="flex:1;min-width:0"><span class="m-store-name">Atacadão<span class="m-chip m-save m-chip-sm">Mais barato</span></span><span class="m-s">2,1 km · aberto até 22h</span></span><span class="m-store-price">187,40</span></span>
+                      <span class="m-bar"><i style="width:79%;background:var(--best)"></i></span>
+                    </div>
+                    <div class="m-store">
+                      <span class="m-store-row"><span class="m-radio"></span><span style="flex:1;min-width:0"><span class="m-store-name">Assaí Atacadista</span><span class="m-s">3,4 km · aberto até 22h</span></span><span class="m-store-price">192,80</span></span>
+                      <span class="m-bar"><i style="width:81%;background:var(--outline)"></i></span>
+                    </div>
+                    <div class="m-store">
+                      <span class="m-store-row"><span class="m-radio"></span><span style="flex:1;min-width:0"><span class="m-store-name">Carrefour</span><span class="m-s">1,2 km · aberto 24h</span></span><span class="m-store-price">210,50</span></span>
+                      <span class="m-bar"><i style="width:89%;background:var(--outline)"></i></span>
+                    </div>
+                    <div class="m-store">
+                      <span class="m-store-row"><span class="m-radio"></span><span style="flex:1;min-width:0"><span class="m-store-name">Pão de Açúcar</span><span class="m-s">0,8 km · aberto até 23h</span></span><span class="m-store-price">236,90</span></span>
+                      <span class="m-bar"><i style="width:100%;background:var(--outline)"></i></span>
+                    </div>
+                  </div>
+                  <div class="m-bottom"><span class="m-btn m-f m-lg"><span class="ms">shopping_cart</span>Comprar no Atacadão</span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="arg">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <div>
-            <h3>Grátis, sem anúncios, sem cartão</h3>
-            <p>Conta criada em segundos com e-mail e senha. Seus dados ficam com você e nunca são vendidos.</p>
+
+        <!-- 3. Modo comprando (fonte: V-Comprando) -->
+        <div class="panel" role="tabpanel" id="panel-comprando" aria-labelledby="tab-comprando" hidden>
+          <p class="panel-caption"><strong>O total do carrinho sempre na tela.</strong> Nada de susto no caixa.</p>
+          <div class="stage">
+            <div class="phone" role="img" aria-label="Tela de compra no Atacadão: R$ 95,01 no carrinho de R$ 187,40 previstos, R$ 4,30 abaixo do previsto, com o corredor de Mercearia em destaque.">
+              <div class="phone-screen">
+                <div class="scr" inert aria-hidden="true">
+                  <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+                  <div class="m-band" style="padding-bottom:48px">
+                    <div class="m-appbar">
+                      <span class="m-ib"><span class="ms">keyboard_arrow_down</span></span>
+                      <div class="m-ttl"><p class="m-h1">Atacadão</p><p class="m-sub">Compra do mês · com Bruno</p></div>
+                      <span class="m-ib"><span class="ms">more_vert</span></span>
+                    </div>
+                    <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:4px 4px 0">
+                      <div><p class="m-sub">No carrinho</p><p style="font-size:40px;line-height:48px">R$ 95,01</p></div>
+                      <div style="text-align:right;padding-bottom:6px"><p class="m-sub">Previsto</p><p style="font-weight:500">R$ 187,40</p></div>
+                    </div>
+                    <div style="height:8px;margin:12px 4px 0;border-radius:4px;background:rgba(255,255,255,.3)"><div style="width:51%;height:100%;border-radius:4px;background:#FFFFFF"></div></div>
+                  </div>
+                  <div class="m-card m-over" style="display:flex;align-items:center;gap:12px;padding:12px 16px">
+                    <span class="m-round m-round-save"><span class="ms">trending_down</span></span>
+                    <span style="flex:1"><span style="display:block">R$ 4,30 abaixo do previsto</span><span class="m-s">6 de 14 itens no carrinho</span></span>
+                  </div>
+                  <div class="m-sec" style="margin-top:8px"><span class="m-now">AGORA</span><span style="color:var(--ons);font-size:16px">Corredor 3 · Mercearia</span></div>
+                  <div class="m-list">
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Café Pilão 500 g</span><span class="m-v">17,90</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Açúcar Cristal União 1 kg</span><span class="m-v">4,79</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Óleo de Soja Soya 900 ml</span><span class="m-v">7,49</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Macarrão Renata 500 g<span class="m-s">2 un</span></span><span class="m-v">8,58</span></div>
+                  </div>
+                  <div class="m-list" style="display:flex;align-items:center;gap:12px;min-height:56px;margin-top:12px;padding:0 16px">
+                    <span class="m-n">Próximos corredores<span class="m-s">Laticínios, Bebidas, Limpeza · 4 itens</span></span>
+                    <span class="ms m-muted">expand_more</span>
+                  </div>
+                  <div class="m-bottom" style="display:flex;gap:8px">
+                    <span class="m-btn m-f m-lg" style="flex:1"><span class="ms">barcode_scanner</span>Escanear</span>
+                    <span class="m-btn m-o m-lg">Finalizar</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Scanner (fonte: V-Scanner) -->
+        <div class="panel" role="tabpanel" id="panel-scanner" aria-labelledby="tab-scanner" hidden>
+          <p class="panel-caption"><strong>Aponte a câmera e pronto.</strong> Confira o preço pelo código de barras.</p>
+          <div class="stage">
+            <div class="phone" role="img" aria-label="Tela do scanner: o detergente Ypê Neutro 500 ml foi encontrado por R$ 2,39, menor preço da região, e já está na lista.">
+              <div class="phone-screen">
+                <div class="scr m-dark" inert aria-hidden="true">
+                  <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+                  <div style="display:flex;align-items:center;gap:8px;height:64px">
+                    <span class="m-ib m-glass"><span class="ms">arrow_back</span></span>
+                    <div style="flex:1;display:flex;justify-content:center"><span class="m-glass" style="height:40px;padding:0 16px;border-radius:20px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500"><span class="ms" style="font-size:18px">shopping_cart</span>R$ 95,01 · 6 de 14</span></div>
+                    <span class="m-ib m-glass"><span class="ms">flashlight_on</span></span>
+                  </div>
+                  <div class="m-viewfinder">
+                    <span class="m-corner" style="left:0;top:0;border-width:4px 0 0 4px;border-top-left-radius:16px"></span>
+                    <span class="m-corner" style="right:0;top:0;border-width:4px 4px 0 0;border-top-right-radius:16px"></span>
+                    <span class="m-corner" style="left:0;bottom:0;border-width:0 0 4px 4px;border-bottom-left-radius:16px"></span>
+                    <span class="m-corner" style="right:0;bottom:0;border-width:0 4px 4px 0;border-bottom-right-radius:16px"></span>
+                    <span class="m-barcode"></span>
+                    <span class="m-laser"></span>
+                  </div>
+                  <p style="margin-top:20px;text-align:center;font-size:15px;color:rgba(255,255,255,.8)">Aponte para o código de barras</p>
+                  <div class="m-sheet">
+                    <span class="m-handle"></span>
+                    <div style="display:flex;align-items:center;gap:12px">
+                      <span class="m-thumb"><span class="ms">inventory_2</span></span>
+                      <div style="flex:1;min-width:0">
+                        <p style="font-size:18px;font-weight:500;line-height:24px">Detergente Ypê Neutro 500 ml</p>
+                        <span class="m-chip m-sel m-chip-sm" style="margin-top:4px"><span class="ms" style="font-size:16px">check</span>Está na sua lista</span>
+                      </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 12px 14px 16px;border-radius:16px;background:var(--low)">
+                      <div>
+                        <div style="font-size:32px;line-height:40px">R$ 2,39</div>
+                        <span class="m-chip m-save m-chip-sm"><span class="ms" style="font-size:16px">trending_down</span>Menor preço da região</span>
+                      </div>
+                      <div style="display:flex;align-items:center;height:48px;border-radius:24px;box-shadow:inset 0 0 0 1px var(--outline)">
+                        <span class="m-ib"><span class="ms">remove</span></span>
+                        <span style="min-width:20px;text-align:center;font-size:18px;font-weight:500">2</span>
+                        <span class="m-ib"><span class="ms">add</span></span>
+                      </div>
+                    </div>
+                    <div style="display:flex;gap:8px">
+                      <span class="m-btn m-lg" style="padding:0 16px;color:var(--p)">Preço diferente?</span>
+                      <span class="m-btn m-f m-lg" style="flex:1">Adicionar · R$ 4,78</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Compra finalizada + WhatsApp (fonte: V-Finalizada) -->
+        <div class="panel" role="tabpanel" id="panel-finalizada" aria-labelledby="tab-finalizada" hidden>
+          <p class="panel-caption"><strong>Veja quanto ficou no bolso.</strong> E mande no WhatsApp da família.</p>
+          <div class="stage">
+            <div class="phone" role="img" aria-label="Tela de compra finalizada no Atacadão: você economizou R$ 23,10 comparado ao Carrefour, com R$ 412,60 economizados no ano e botão para compartilhar no WhatsApp.">
+              <div class="phone-screen">
+                <div class="scr" inert aria-hidden="true">
+                  <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+                  <div class="m-band" style="padding-bottom:64px;text-align:center">
+                    <div class="m-appbar"><span class="m-ib"><span class="ms">close</span></span></div>
+                    <span class="m-done-badge"><span class="ms">check</span></span>
+                    <p style="margin-top:14px;font-size:24px;font-weight:500;line-height:32px">Compra finalizada</p>
+                    <p class="m-sub">Atacadão · 17 nov · 14 itens</p>
+                  </div>
+                  <div class="m-card m-over" style="margin-top:-40px;padding:20px 20px 16px;text-align:center">
+                    <p class="m-s" style="font-size:16px">Você economizou</p>
+                    <p style="font-size:48px;line-height:56px;color:var(--t);letter-spacing:-.5px">R$ 23,10</p>
+                    <p class="m-s">comparado ao Carrefour</p>
+                    <div style="margin:16px 0 8px;border-top:1px dashed var(--outline)"></div>
+                    <div style="text-align:left;font-size:15px;line-height:28px">
+                      <div style="display:flex;justify-content:space-between"><span>Total pago</span><span style="font-weight:500">R$ 187,40</span></div>
+                      <div style="display:flex;justify-content:space-between" class="m-muted"><span>No Carrefour seria</span><span>R$ 210,50</span></div>
+                      <div style="display:flex;justify-content:space-between" class="m-muted"><span>Preços que você enviou</span><span>3</span></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px 16px;border-radius:16px;background:var(--tc);color:var(--ontc);text-align:left">
+                      <span class="ms">savings</span><span style="flex:1;font-size:15px">No ano</span><span style="font-weight:700">R$ 412,60</span>
+                    </div>
+                  </div>
+                  <div style="position:absolute;left:16px;right:16px;bottom:24px;display:flex;flex-direction:column;gap:8px">
+                    <span class="m-btn m-f m-lg"><span class="ms">share</span>Compartilhar no WhatsApp</span>
+                    <span class="m-btn m-lg" style="color:var(--p)">Concluir</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Histórico de economia (fonte: V-Economia) -->
+        <div class="panel" role="tabpanel" id="panel-historico" aria-labelledby="tab-historico" hidden>
+          <p class="panel-caption"><strong>Sua economia, mês a mês.</strong> Todas as compras, com quanto você poupou.</p>
+          <div class="stage">
+            <div class="phone" role="img" aria-label="Tela Economia: R$ 412,60 economizados desde junho, gráfico por mês de junho a novembro e a lista das últimas compras com a economia de cada uma.">
+              <div class="phone-screen">
+                <div class="scr" inert aria-hidden="true">
+                  <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+                  <div class="m-band" style="padding-bottom:52px">
+                    <div class="m-appbar">
+                      <div class="m-ttl" style="padding-left:0"><p class="m-h1">Economia</p></div>
+                      <span class="m-avatar">A</span>
+                    </div>
+                    <p class="m-sub">Desde junho você economizou</p>
+                    <p style="font-size:44px;line-height:52px;letter-spacing:-.5px">R$ 412,60</p>
+                    <p class="m-sub">Dá para quase 2 compras do mês inteiras</p>
+                  </div>
+                  <div class="m-card m-over" style="padding:16px">
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                      <p style="font-size:16px;font-weight:500">Por mês</p>
+                      <span class="m-chip m-out">6 meses<span class="ms">arrow_drop_down</span></span>
+                    </div>
+                    <div class="m-chart">
+                      <div><span>38</span><i style="height:34px"></i><span>jun</span></div>
+                      <div><span>72</span><i style="height:65px"></i><span>jul</span></div>
+                      <div><span>52</span><i style="height:47px"></i><span>ago</span></div>
+                      <div><span>97</span><i style="height:87px"></i><span>set</span></div>
+                      <div><span>89</span><i style="height:80px"></i><span>out</span></div>
+                      <div class="m-chart-on"><span>64</span><i style="height:58px"></i><span>nov</span></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;height:48px;margin-top:4px">
+                    <p style="font-size:16px;font-weight:500">Compras</p>
+                    <span style="padding:0 12px;color:var(--p);font-size:14px;font-weight:500">Ver todas</span>
+                  </div>
+                  <div class="m-list">
+                    <div class="m-li m-pl"><span class="m-n">Atacadão<span class="m-s">17 nov · R$ 187,40</span></span><span class="m-saved">− R$ 23,10</span></div>
+                    <div class="m-li m-pl"><span class="m-n">Assaí Atacadista<span class="m-s">2 nov · R$ 241,75</span></span><span class="m-saved">− R$ 41,10</span></div>
+                    <div class="m-li m-pl"><span class="m-n">Atacadão<span class="m-s">24 out · R$ 198,30</span></span><span class="m-saved">− R$ 18,90</span></div>
+                  </div>
+                  <div class="m-nav">
+                    <span><span class="m-ind"><span class="ms">home</span></span>Início</span>
+                    <span><span class="m-ind"><span class="ms">list_alt</span></span>Listas</span>
+                    <span><span class="m-ind"><span class="ms">barcode_scanner</span></span>Comprar</span>
+                    <span><span class="m-ind"><span class="ms">sell</span></span>Preços</span>
+                    <span class="m-nav-on"><span class="m-ind"><span class="ms fill">savings</span></span>Economia</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Lista compartilhada (tela nova, no mesmo padrão de V-Lista) -->
+        <div class="panel" role="tabpanel" id="panel-familia" aria-labelledby="tab-familia" hidden>
+          <p class="panel-caption"><strong>Uma lista para a casa toda.</strong> Todo mundo adiciona e vê na hora.</p>
+          <div class="stage">
+            <div class="phone" role="img" aria-label="Tela da lista compartilhada entre Ana, Bruno e Marina: Bruno acabou de adicionar sabão em pó e Marina já pegou o leite.">
+              <div class="phone-screen">
+                <div class="scr" inert aria-hidden="true">
+                  <div class="m-status"><span>9:41</span><span class="m-status-icons"><span class="ms fill">signal_cellular_alt</span><span class="ms fill">wifi</span><span class="ms fill">battery_full</span></span></div>
+                  <div class="m-band">
+                    <div class="m-appbar">
+                      <span class="m-ib"><span class="ms">arrow_back</span></span>
+                      <div class="m-ttl"><p class="m-h1">Compra do mês</p><p class="m-sub">Você, Bruno e Marina</p></div>
+                      <span class="m-ib"><span class="ms">person_add</span></span>
+                      <span class="m-ib"><span class="ms">more_vert</span></span>
+                    </div>
+                  </div>
+                  <div class="m-card m-over" style="display:flex;align-items:center;gap:12px;padding:14px 12px 14px 16px">
+                    <span class="m-faces"><span class="m-face" style="background:#FDE7E9;color:#8C0F1A">A</span><span class="m-face" style="background:#E6E8EC;color:#16181D">B</span><span class="m-face" style="background:#16181D;color:#FFFFFF">M</span></span>
+                    <span style="flex:1;min-width:0"><span style="display:block;font-weight:500">3 pessoas</span><span class="m-s">Todos veem na hora</span></span>
+                    <span class="m-btn m-t" style="height:40px;padding:0 16px;font-size:14px">Convidar</span>
+                  </div>
+                  <div class="m-toast">
+                    <span class="m-face m-face-sm" style="background:#E6E8EC;color:#16181D">B</span>
+                    <span style="flex:1;min-width:0"><strong style="font-weight:500">Bruno</strong> adicionou Sabão em pó Omo</span>
+                    <span class="m-s" style="font-size:12px">agora</span>
+                  </div>
+                  <div class="m-sec"><span style="flex:1">Corredor 7 · Limpeza</span><span>2 itens</span></div>
+                  <div class="m-list">
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Sabão em pó Omo 1,6 kg<span class="m-s">Adicionado por Bruno</span></span><span class="m-v">27,90</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Detergente Ypê 500 ml<span class="m-s">2 un · por você</span></span><span class="m-v">4,78</span></div>
+                  </div>
+                  <div class="m-sec"><span style="flex:1">Corredor 5 · Laticínios</span><span>2 itens</span></div>
+                  <div class="m-list">
+                    <div class="m-li m-done"><span class="m-cb m-on"><i><span class="ms">check</span></i></span><span class="m-n">Leite Italac 1 L<span class="m-s">Pego por Marina</span></span><span class="m-v">59,88</span></div>
+                    <div class="m-li"><span class="m-cb"><i></i></span><span class="m-n">Iogurte Nestlé 170 g<span class="m-s">4 un · por Marina</span></span><span class="m-v">11,96</span></div>
+                  </div>
+                  <div class="m-bottom" style="display:flex;flex-direction:column;gap:10px">
+                    <div class="m-add"><span class="ms m-muted">add</span><span class="m-muted" style="flex:1;padding-left:10px">Adicionar item</span><span class="m-ib m-muted"><span class="ms">barcode_scanner</span></span></div>
+                    <span class="m-btn m-f m-lg"><span class="ms">person_add</span>Convidar pelo WhatsApp</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -541,262 +510,115 @@
   </div>
 </section>
 
-<section class="community">
-  <div class="wrap">
-    <div>
-      <span class="eyebrow">De onde vêm os preços</span>
-      <h2 style="margin-top:14px">Cada preço registrado ajuda a próxima família.</h2>
-      <p class="lead" style="margin-top:16px">Os preços vêm de quem está no mercado agora, não de uma tabela antiga. Você registra um preço em segundos, ao escanear, e recebe centenas em troca. Registros recentes pesam mais, valores fora do padrão são sinalizados e você sempre vê a data do último registro.</p>
-    </div>
-    <div>
-      <div class="barcode" aria-hidden="true" id="barcode"></div>
-      <div class="stats">
-        <div class="stat"><b class="num">3 s</b><small>para registrar um preço</small></div>
-        <div class="stat"><b class="num">R$ 0</b><small>para usar, sempre</small></div>
-        <div class="stat"><b class="num">0</b><small>anúncios no app</small></div>
-      </div>
-    </div>
+<!-- ============ NÚMEROS ============
+     PLACEHOLDER: todos os números desta seção são DADOS DE EXEMPLO, calculados com a lista
+     fictícia das telas acima. Troque pelos números reais do beta antes de divulgar
+     (e remova a nota "Valores ilustrativos" quando forem reais). -->
+<section class="section section-alt numbers" aria-labelledby="numeros-titulo">
+  <div class="container">
+    <h2 class="section-title" id="numeros-titulo">A mesma lista, preços bem diferentes</h2>
+    <ul class="stats">
+      <!-- PLACEHOLDER: diferença entre o mais barato e o mais caro na lista de exemplo (187,40 x 236,90) -->
+      <li class="stat" data-placeholder><span class="stat-value stat-save">R$ 49,50</span><span class="stat-label">de diferença na mesma lista</span></li>
+      <!-- PLACEHOLDER: economia acumulada de exemplo (tela Economia) -->
+      <li class="stat" data-placeholder><span class="stat-value stat-save">R$ 412</span><span class="stat-label">economizados em 6 meses</span></li>
+      <!-- PLACEHOLDER: quantidade de mercados comparados por lista -->
+      <li class="stat" data-placeholder><span class="stat-value">4</span><span class="stat-label">mercados comparados por lista</span></li>
+      <!-- PLACEHOLDER: tamanho da lista de espera; atualize com o número real de inscritos -->
+      <li class="stat" data-placeholder><span class="stat-value">1.200+</span><span class="stat-label">pessoas na fila do beta</span></li>
+    </ul>
+    <p class="footnote">Valores ilustrativos, com uma lista de exemplo.</p>
   </div>
 </section>
 
-<section class="faq" id="faq">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Dúvidas frequentes</span>
-      <h2>O que as pessoas perguntam antes de baixar.</h2>
-    </div>
+<!-- ============ FAQ ============ -->
+<section class="section faq" id="duvidas" aria-labelledby="duvidas-titulo">
+  <div class="container container-narrow">
+    <h2 class="section-title" id="duvidas-titulo">Dúvidas</h2>
     <div class="faq-list">
-      <details open>
-        <summary>O Lista Fácil é grátis mesmo?</summary>
-        <p>Sim. Lista, scanner, comparação de preços e histórico são gratuitos e sem anúncios. Não pedimos cartão. Se um dia existirem recursos extras pagos, o básico continua grátis.</p>
+      <!-- TODO(produto): confirmar o modelo de cobrança antes de publicar. -->
+      <details class="faq-item">
+        <summary>É grátis?<span class="ms" aria-hidden="true">expand_more</span></summary>
+        <p>Sim. O beta é grátis e não pede cartão.</p>
       </details>
-      <details>
-        <summary>De onde vêm os preços? Dá para confiar?</summary>
-        <p>Da comunidade: cada pessoa registra o preço que viu na gôndola ao escanear. Registros recentes pesam mais, valores fora do padrão são sinalizados e preços confirmados por várias pessoas ganham confiança. Você sempre vê a data do último registro.</p>
+      <details class="faq-item">
+        <summary>Quando começa?<span class="ms" aria-hidden="true">expand_more</span></summary>
+        <p>Os convites saem aos poucos. Você recebe um e-mail quando chegar sua vez.</p>
       </details>
-      <details>
-        <summary>Funciona na minha cidade?</summary>
-        <p>O app funciona em qualquer lugar do Brasil e encontra os mercados perto de você pela localização, mesmo os que ainda não têm preços cadastrados. A comparação fica melhor conforme a comunidade da sua região cresce. Quanto antes você começar, mais rápido ela cresce.</p>
+      <!-- TODO(produto): confirmar se o beta abre nas duas lojas ao mesmo tempo. -->
+      <details class="faq-item">
+        <summary>Tem para Android e iPhone?<span class="ms" aria-hidden="true">expand_more</span></summary>
+        <p>Sim, para os dois.</p>
       </details>
-      <details>
-        <summary>Preciso escanear tudo que compro?</summary>
-        <p>Não. Escaneie o que quiser comparar. Muita gente começa pelos itens mais caros da lista, como carne, café, leite e fralda, que é onde a diferença entre mercados mais pesa.</p>
-      </details>
-      <details>
-        <summary>Tem para iPhone?</summary>
-        <p>Ainda não. Hoje o app está na Google Play. A versão para iOS está em desenvolvimento. Deixe seu e-mail no fim da página e a gente avisa no dia em que ela entrar na App Store.</p>
-      </details>
-      <details>
-        <summary>Quais permissões o app pede?</summary>
-        <p>Câmera, para ler códigos de barras e QR Codes de convite. Localização, para encontrar os mercados perto de você, usada só enquanto o app está aberto. Nada é vendido nem compartilhado com anunciantes.</p>
+      <details class="faq-item">
+        <summary>E os meus dados?<span class="ms" aria-hidden="true">expand_more</span></summary>
+        <p>Seu e-mail serve só para o convite e novidades do app. Não vendemos nem repassamos, e você sai da lista quando quiser (LGPD). <a href="privacidade.html">Política de privacidade</a>.</p>
       </details>
     </div>
   </div>
 </section>
 
-<section class="cta-final" id="baixar">
-  <div class="wrap">
-    <div style="display:grid;gap:18px">
-      <span class="eyebrow">Comece na próxima compra</span>
-      <h2>Baixe grátis e descubra quanto dá para economizar.</h2>
-      <p class="lead">Crie a primeira lista em um minuto. Na próxima ida ao mercado, você já sabe onde sua compra sai mais barata.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-play" data-play-link href="https://play.google.com/store/apps/details?id=br.com.nataldev.listafacil" rel="noopener">
-          <svg width="26" height="28" viewBox="0 0 26 28" aria-hidden="true"><path d="M1.2 1.1C.8 1.5.6 2.1.6 2.9v22.2c0 .8.2 1.4.6 1.8l.1.1L14 14.4v-.3L1.3 1z" fill="#00A0FF"/><path d="M18.2 18.6 14 14.4v-.3l4.2-4.2.1.1 5 2.8c1.4.8 1.4 2.1 0 2.9l-5 2.8-.1.1z" fill="#FFBC00"/><path d="M18.3 18.5 14 14.2 1.2 27c.5.5 1.2.5 2.1.1l15-8.6" fill="#FF3A44"/><path d="M18.3 9.9 3.3 1.4C2.4.9 1.7.9 1.2 1.4L14 14.2l4.3-4.3z" fill="#32A071"/></svg>
-          <span><small>Disponível na</small><b>Google Play</b></span>
-        </a>
+<!-- ============ CTA FINAL ============ -->
+<section class="section cta" id="beta" aria-labelledby="beta-titulo">
+  <div class="container">
+    <div class="cta-band">
+      <div class="cta-copy">
+        <h2 id="beta-titulo">Seja dos primeiros a testar</h2>
+        <p>Grátis. Só precisamos do seu e-mail.</p>
       </div>
-      <p class="hero-ios">Android · Grátis · Sem anúncios · Sem cartão</p>
-    </div>
-    <div class="cta-box">
-      <h3>Usa iPhone?</h3>
-      <p>A versão para iOS está a caminho. Deixe seu e-mail e você recebe o link no dia em que ela entrar na App Store.</p>
-      <form class="lead-form" data-lead-form novalidate>
-        <div class="row">
-          <input id="email-ios" type="email" name="email" placeholder="Seu melhor e-mail" aria-label="E-mail" autocomplete="email" required>
-          <button class="btn btn-primary" type="submit">Me avise</button>
+
+      <div class="signup-card" data-signup>
+        <form class="signup-form" novalidate>
+          <label class="field-label" for="final-email">Seu e-mail</label>
+          <div class="field-row">
+            <input class="field-input" id="final-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="nome@gmail.com" aria-describedby="final-email-error" required>
+            <button class="btn btn-primary btn-submit" type="submit">
+              <span class="btn-spinner" aria-hidden="true"></span>
+              <span class="btn-label">Entrar no beta</span>
+            </button>
+          </div>
+          <p class="field-error" id="final-email-error" data-error="email" hidden></p>
+          <label class="consent">
+            <input type="checkbox" name="consent" aria-describedby="final-consent-error" required>
+            <span>Aceito receber e-mails do Lista Fácil e li a <a href="privacidade.html" target="_blank" rel="noopener">política de privacidade</a>.</span>
+          </label>
+          <p class="field-error" id="final-consent-error" data-error="consent" hidden></p>
+          <div class="hp" aria-hidden="true"><label>Site <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="form-alert" role="alert" data-alert hidden></div>
+        </form>
+        <div class="signup-success" data-success hidden>
+          <span class="success-icon" aria-hidden="true"><span class="ms">check</span></span>
+          <p class="success-title" tabindex="-1">Pronto, você está na lista!</p>
+          <p class="success-text">O convite vai para <strong data-success-email></strong>.</p>
+          <a class="btn btn-tonal" data-share-whatsapp href="https://wa.me/" target="_blank" rel="noopener"><span class="ms" aria-hidden="true">share</span>Chamar a família no WhatsApp</a>
         </div>
-        <p class="fine">Só o aviso do lançamento. Sem spam, sem newsletter semanal.</p>
-        <p class="err" role="alert">Confira o e-mail e tente de novo.</p>
-        <p class="ok" role="status">Anotado! Você recebe o aviso assim que o app chegar na App Store.</p>
-      </form>
+      </div>
     </div>
   </div>
 </section>
 
 </main>
 
-<footer>
-  <div class="wrap">
-    <a class="brand" href="#topo" style="font-size:1rem">
-      <img src="assets/icon-192.png" alt="" width="28" height="28" style="width:28px;height:28px;border-radius:7px">
-      Lista Fácil
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a class="brand brand-dark" href="#" aria-label="Lista Fácil, voltar ao topo">
+      <img src="assets/logo.svg" width="32" height="32" alt="">
+      <span>Lista Fácil</span>
     </a>
-    <nav aria-label="Rodapé">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#recursos">Recursos</a>
-      <a href="#faq">Dúvidas</a>
+    <nav class="footer-links" aria-label="Rodapé">
       <a href="privacidade.html">Privacidade</a>
       <a href="termos.html">Termos</a>
-      <a href="mailto:contato@listafacil.app">Contato</a>
+      <a href="#duvidas">Dúvidas</a>
     </nav>
-    <span>Feito em Natal, RN · Seus dados ficam com você, nunca são vendidos.</span>
+    <p class="footer-copy">© <span data-year>2026</span> Lista Fácil</p>
   </div>
 </footer>
 
-<div class="sticky-cta" id="sticky-cta">
-  <a class="btn btn-primary" data-play-link href="https://play.google.com/store/apps/details?id=br.com.nataldev.listafacil" rel="noopener">Baixar grátis na Google Play</a>
+<!-- Botão fixo no celular: aparece quando os formulários saem da tela. -->
+<div class="sticky-cta" data-sticky-cta>
+  <a class="btn btn-primary" href="#beta" data-focus-email="final-email">Quero testar grátis</a>
 </div>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "name": "Lista Fácil",
-  "operatingSystem": "ANDROID",
-  "applicationCategory": "ShoppingApplication",
-  "inLanguage": "pt-BR",
-  "description": "Monte a lista, escaneie o código de barras e compare o preço de cada item nos mercados perto de você.",
-  "installUrl": "https://play.google.com/store/apps/details?id=br.com.nataldev.listafacil",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
-}
-</script>
-
-<script>
-(function () {
-  // ---- Configuração ---------------------------------------------------------
-  // Link da ficha na Google Play. Todos os botões com [data-play-link] usam este valor.
-  var PLAY_URL = 'https://play.google.com/store/apps/details?id=br.com.nataldev.listafacil';
-  // Destino do formulário "avise-me" (ex.: https://api.seudominio.com/v1/leads ou um Formspree).
-  // Vazio = modo demonstração (mostra sucesso e guarda no navegador).
-  var LEAD_ENDPOINT = '';
-
-  document.querySelectorAll('[data-play-link]').forEach(function (a) { a.href = PLAY_URL; });
-
-  // ---- Captura de e-mail (iOS / novidades) -----------------------------------
-  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
-
-  document.querySelectorAll('[data-lead-form]').forEach(function (form) {
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      form.classList.remove('error');
-      var emailEl = form.querySelector('input[name=email]');
-      var email = (emailEl.value || '').trim();
-      if (!validEmail(email)) { form.classList.add('error'); emailEl.focus(); return; }
-      var btn = form.querySelector('button[type=submit]');
-      btn.disabled = true; btn.textContent = 'Enviando…';
-      var payload = { email: email, plataforma: 'ios', origem: 'landing', quando: new Date().toISOString() };
-      var done = function () { form.classList.add('sent'); };
-      var fail = function () { btn.disabled = false; btn.textContent = 'Tentar de novo'; form.classList.add('error'); };
-      if (!LEAD_ENDPOINT) {
-        try { localStorage.setItem('listafacil-lead', JSON.stringify(payload)); } catch (e) {}
-        setTimeout(done, 350);
-        return;
-      }
-      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
-        .then(function (r) { r.ok ? done() : fail(); })
-        .catch(fail);
-    });
-  });
-
-  // ---- Simulador de comparação --------------------------------------------
-  // Preços ilustrativos (R$) em três mercados. A melhor combinação compra cada item no mais barato.
-  var STORES = ['Atacadão', 'Nordestão', 'Carrefour'];
-  var ITEMS = [
-    { n: 'Arroz tipo 1', d: '5 kg', p: [24.90, 29.49, 26.99] },
-    { n: 'Feijão carioca', d: '1 kg', p: [7.49, 8.99, 7.99] },
-    { n: 'Café torrado e moído', d: '500 g', p: [19.90, 17.99, 21.49] },
-    { n: 'Leite integral', d: '12 × 1 L', p: [58.80, 54.99, 62.28] },
-    { n: 'Óleo de soja', d: '900 ml', p: [6.29, 7.49, 6.99] },
-    { n: 'Papel higiênico', d: '12 rolos', p: [21.90, 19.99, 24.90] },
-    { n: 'Frango (peito)', d: '1 kg', p: [17.90, 22.90, 16.99] }
-  ];
-  var brl = function (v) { return 'R$ ' + v.toFixed(2).replace('.', ','); };
-  var list = document.getElementById('sim-list');
-  var storesEl = document.getElementById('sim-stores');
-  var savingEl = document.getElementById('sim-saving');
-  var vsEl = document.getElementById('sim-vs');
-  var state = ITEMS.map(function () { return true; });
-
-  ITEMS.forEach(function (it, i) {
-    var min = Math.min.apply(null, it.p);
-    var li = document.createElement('li');
-    li.innerHTML =
-      '<label class="chk"><input type="checkbox" checked aria-label="' + it.n + '"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span></label>' +
-      '<div class="item"><b>' + it.n + '</b><small>' + it.d + '</small></div>' +
-      '<div class="best num">' + brl(min) + '<small>' + STORES[it.p.indexOf(min)] + '</small></div>';
-    li.querySelector('input').addEventListener('change', function (e) { state[i] = e.target.checked; li.classList.toggle('off', !e.target.checked); render(); });
-    list.appendChild(li);
-  });
-
-  var storeCards = STORES.map(function (s) {
-    var d = document.createElement('div');
-    d.className = 'store';
-    d.innerHTML = '<small>' + s + '</small><b class="num">R$ 0,00</b>';
-    storesEl.appendChild(d);
-    return d;
-  });
-
-  var shown = 0, raf;
-  function animateTo(target) {
-    cancelAnimationFrame(raf);
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) { shown = target; savingEl.textContent = brl(shown); return; }
-    var from = shown, t0 = performance.now();
-    (function step(t) {
-      var k = Math.min(1, (t - t0) / 600); k = 1 - Math.pow(1 - k, 3);
-      shown = from + (target - from) * k;
-      savingEl.textContent = brl(shown);
-      if (k < 1) raf = requestAnimationFrame(step);
-    })(t0);
-  }
-
-  function render() {
-    var totals = STORES.map(function () { return 0; });
-    var best = 0, any = false;
-    ITEMS.forEach(function (it, i) {
-      if (!state[i]) return;
-      any = true;
-      it.p.forEach(function (v, s) { totals[s] += v; });
-      best += Math.min.apply(null, it.p);
-    });
-    var cheapest = totals.indexOf(Math.min.apply(null, totals));
-    var priciest = Math.max.apply(null, totals);
-    storeCards.forEach(function (c, s) {
-      c.querySelector('b').textContent = brl(totals[s]);
-      c.classList.toggle('cheapest', any && s === cheapest);
-      c.querySelector('small').textContent = STORES[s] + (any && s === cheapest ? ' · mais barato' : '');
-    });
-    vsEl.textContent = any ? 'vs. ' + brl(priciest) + ' comprando tudo no mais caro' : 'Marque itens para comparar';
-    animateTo(any ? priciest - best : 0);
-  }
-  render();
-
-  // ---- Código de barras decorativo -----------------------------------------
-  var bc = document.getElementById('barcode');
-  if (bc) {
-    var seed = 7;
-    for (var i = 0; i < 46; i++) {
-      seed = (seed * 9301 + 49297) % 233280;
-      var w = 1 + Math.floor((seed / 233280) * 4);
-      var bar = document.createElement('i');
-      bar.style.width = w + 'px';
-      bar.style.opacity = (i % 5 === 0) ? '1' : '.75';
-      bc.appendChild(bar);
-    }
-  }
-
-  // ---- Barra fixa no celular ------------------------------------------------
-  var sticky = document.getElementById('sticky-cta');
-  var hero = document.querySelector('.hero');
-  var final = document.getElementById('baixar');
-  if (sticky && hero && final && 'IntersectionObserver' in window) {
-    var heroVisible = true, finalVisible = false;
-    var update = function () { sticky.classList.toggle('show', !heroVisible && !finalVisible); };
-    new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); }, { threshold: 0.15 }).observe(hero);
-    new IntersectionObserver(function (e) { finalVisible = e[0].isIntersecting; update(); }, { threshold: 0.2 }).observe(final);
-  }
-})();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
